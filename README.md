@@ -15,6 +15,6 @@ Astro + React Three Fiber + GSAP ScrollTrigger. Tokens em `src/styles/tokens.css
 - Filiais: `src/content/filiais.json`.
 
 ## Pendente
-- `public/logo.svg` é placeholder: exportar `Logo/Oficial` do Figma como SVG e substituir.
+- Logo oficial em `public/logo.svg` (exportado do Figma, não alterar).
 - Páginas internas (Corte e Dobra, Área de Entrega, Contato, categorias) ainda não existem; os links apontam para as rotas planejadas.
 - Tier "medium" só reduz DPR/antialias; medir num Android real.
