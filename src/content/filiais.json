@@ -1,0 +1,24 @@
+[
+  {
+    "id": "parauapebas",
+    "nome": "Parauapebas",
+    "sede": false,
+    "endereco": "Rua Sol Poente, 3B, Rio Verde · PA-275, Qd. 02-G, Lt. 07, Cidade Jardim",
+    "fixo": "5594335200015",
+    "fixoDisplay": "(94) 3352-0015",
+    "whatsapp": "5594991132566",
+    "whatsappDisplay": "(94) 99113-2566",
+    "email": "parauapebas@planetadosferros.com.br"
+  },
+  {
+    "id": "canaa",
+    "nome": "Canaã dos Carajás",
+    "sede": true,
+    "endereco": "Av. Weyne Cavalcante, nº [ATUALIZAR]",
+    "fixo": "559433581449",
+    "fixoDisplay": "(94) 3358-1449",
+    "whatsapp": "5594991631413",
+    "whatsappDisplay": "(94) 99163-1413",
+    "email": "vendas@planetadosferros.com.br"
+  }
+]

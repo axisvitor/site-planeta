@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="599" height="154" viewBox="0 0 599 154" role="img" aria-label="Planeta dos Ferros (placeholder)">
+  <rect width="599" height="154" fill="#fff"/>
+  <ellipse cx="120" cy="77" rx="100" ry="34" fill="none" stroke="#FCC908" stroke-width="14" transform="rotate(-18 120 77)"/>
+  <text x="80" y="104" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="84" fill="#214093">PF</text>
+  <text x="258" y="66" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="50" fill="#214093" letter-spacing="2">PLANETA</text>
+  <text x="258" y="118" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="50" fill="#214093" letter-spacing="2">dos FERROS</text>
+  <text x="262" y="142" font-family="Arial, sans-serif" font-size="13" fill="#214093">placeholder — trocar por Logo/Oficial exportado do Figma</text>
+</svg>

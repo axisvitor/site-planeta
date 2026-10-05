@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import ActionBar from '../components/ActionBar.astro';
+import Hero from '../islands/globe/Hero';
+import { WA } from '../content/frames';
+---
+<Base title="Planeta dos Ferros | Ferro e Aço em Parauapebas e Canaã" description="Ferro e aço para construção e serralheria, corte e dobra sob medida e entrega no sul do Pará, de Parauapebas a Xinguara.">
+  <Header />
+  <main>
+    <Hero client:only="react" />
+
+    <section class="how" data-theme="light">
+      <div class="container">
+        <h2 class="t-h2">Como funciona</h2>
+        <ol class="steps">
+          <li><span class="t-mono">01</span><h3 class="t-h3">Envie o projeto pelo site ou WhatsApp</h3></li>
+          <li><span class="t-mono">02</span><h3 class="t-h3">Nossos técnicos plotam e orçam sem custo</h3></li>
+          <li><span class="t-mono">03</span><h3 class="t-h3">Cortamos, dobramos e entregamos na data combinada</h3></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <h2 class="t-h2">Tem um projeto na mão?</h2>
+        <p class="t-body-lg">Mande agora e receba o orçamento sem custo.</p>
+        <div class="cta__row">
+          <a href="/corte-e-dobra#projeto" class="btn btn--l btn--primary">Enviar projeto</a>
+          <a href={WA('Olá! Vim pelo site e quero um orçamento de aço.')} class="btn btn--l btn--whatsapp" target="_blank" rel="noreferrer">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <ActionBar />
+</Base>
+
+<style>
+  .how { background: var(--concreto-100); color: var(--grafite-900); padding: var(--space-64) 0; }
+  @media (min-width: 1200px) { .how { padding: var(--space-128) 0; } }
+  .how h2 { margin: 0 0 var(--space-32); }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-32); }
+  @media (min-width: 768px) { .steps { grid-template-columns: repeat(3, 1fr); gap: var(--space-24); } }
+  .steps li { display: grid; gap: var(--space-12); padding-top: var(--space-16); border-top: 1px solid var(--concreto-200); }
+  .steps .t-mono { color: var(--grafite-900); width: 40px; height: 40px; display: grid; place-items: center; border: 1.5px solid var(--concreto-200); border-radius: var(--radius-2); }
+  .steps h3 { margin: 0; }
+  .cta { background: var(--grafite-900); color: var(--concreto-100); padding: var(--space-64) 0 calc(var(--space-64) + 64px); }
+  @media (min-width: 1200px) { .cta { padding: var(--space-128) 0; } }
+  .cta h2 { margin: 0; }
+  .cta p { margin: var(--space-12) 0 0; color: var(--aco-300); }
+  .cta__row { display: flex; flex-wrap: wrap; gap: var(--space-12); margin-top: var(--space-32); }
+</style>

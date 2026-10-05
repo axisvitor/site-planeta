@@ -1,0 +1,67 @@
+/* Tokens — espelho das variáveis do Figma (Primitivas, Semânticas, Medidas) */
+:root {
+  /* Primitivas */
+  --grafite-950: #0e1013;
+  --grafite-900: #121417;
+  --grafite-800: #1c1f24;
+  --grafite-700: #2a2e35;
+  --aco-400: #8a9097;
+  --aco-300: #b4b9bf;
+  --carepa-600: #3b4a5c;
+  --concreto-200: #c9c5bd;
+  --concreto-100: #edeae4;
+  --branco: #ffffff;
+  --marca-primaria: #214093;
+  --marca-secundaria: #fcc908;
+  --marca-secundaria-escura: #e0b200;
+  --whatsapp-500: #25d366;
+  --whatsapp-600: #1fb257;
+  --erro-500: #d64545;
+  --sucesso-500: #2e9e5b;
+
+  /* Medidas */
+  --space-4: 4px; --space-8: 8px; --space-12: 12px; --space-16: 16px;
+  --space-20: 20px; --space-24: 24px; --space-32: 32px; --space-48: 48px;
+  --space-64: 64px; --space-96: 96px; --space-128: 128px;
+  --radius-2: 2px; --radius-4: 4px; --radius-8: 8px; --radius-999: 999px;
+
+  /* Motion (aba 5 + Emil) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --motion-fast: 150ms;
+  --motion-base: 250ms;
+  --motion-reveal: 600ms;
+
+  /* Tipografia */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Barlow', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Semânticas — modo Escuro (padrão do canvas 3D) */
+  --bg-canvas: var(--grafite-900);
+  --bg-surface: var(--grafite-800);
+  --bg-inverse: var(--concreto-100);
+  --text-primary: var(--concreto-100);
+  --text-secondary: var(--aco-300);
+  --border-subtle: var(--grafite-700);
+  --border-strong: var(--aco-400);
+  --action-primary: var(--marca-secundaria);
+  --action-primary-hover: var(--marca-secundaria-escura);
+  --action-primary-text: var(--grafite-900);
+  --action-whatsapp: var(--whatsapp-500);
+  --action-whatsapp-hover: var(--whatsapp-600);
+  --action-whatsapp-text: var(--grafite-900);
+  --brand-blue: var(--marca-primaria);
+  --feedback-error: var(--erro-500);
+  --feedback-success: var(--sucesso-500);
+}
+
+[data-theme='light'] {
+  --bg-canvas: var(--concreto-100);
+  --bg-surface: var(--branco);
+  --bg-inverse: var(--grafite-900);
+  --text-primary: var(--grafite-900);
+  --text-secondary: var(--carepa-600);
+  --border-subtle: var(--concreto-200);
+  --border-strong: var(--carepa-600);
+}
