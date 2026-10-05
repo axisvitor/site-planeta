@@ -1,0 +1,126 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import ActionBar from '../components/ActionBar.astro';
+import Footer from '../components/Footer.astro';
+import Steps from '../components/Steps.astro';
+import Faq from '../components/Faq.astro';
+import ProjetoForm from '../components/ProjetoForm.astro';
+import { WA } from '../content/frames';
+
+const pecas = ['Estribos', 'Colunas', 'Vigas', 'Sapatas', 'Gaiolas', 'Peças especiais'];
+const porque = [
+  'Sem sobra de ponta e sem perda de material',
+  'Menos mão de obra e espaço no canteiro',
+  'Precisão de máquina nas medidas e dobras',
+  'Material chega na sequência de execução',
+];
+const faq = [
+  { q: 'E se o projeto mudar?', a: 'Avise antes do corte e ajustamos o orçamento.' },
+  { q: 'Atendem obra pequena?', a: 'Sim, de casa a galpão. [CONFIRMAR volume mínimo]' },
+  { q: 'Posso retirar na loja?', a: '[CONFIRMAR]' },
+  { q: 'Em que formato mando o projeto?', a: 'PDF, DWG, DXF ou foto legível das pranchas.' },
+];
+---
+<Base title="Corte e Dobra de Aço no Sul do Pará | Planeta dos Ferros" description="Envie o projeto e receba o orçamento sem custo. Corte e dobra de vergalhão na máquina, com entrega programada na sua obra." theme="light">
+  <Header />
+  <main>
+    <section class="hero" data-theme="dark">
+      <div class="container hero__in">
+        <div class="hero__copy">
+          <p class="t-overline">Corte e dobra</p>
+          <h1 class="t-h1">Corte e dobra de aço sob medida para a sua obra.</h1>
+          <p class="t-body-lg">Mande o projeto estrutural. A gente plota, orça sem custo, corta, dobra e entrega no ritmo da obra.</p>
+          <div class="hero__ctas">
+            <a href="#projeto" class="btn btn--l btn--primary">Enviar projeto</a>
+            <a href={WA('Olá! Vim pelo site e quero orçamento de corte e dobra. Posso mandar o projeto por aqui?')} class="btn btn--l btn--whatsapp" target="_blank" rel="noreferrer">Falar no WhatsApp</a>
+          </div>
+        </div>
+        <div class="hero__art" aria-hidden>
+          <div class="cage"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="container">
+        <h2 class="t-h2">Como funciona</h2>
+        <Steps items={[
+          { title: 'Envie o projeto', body: 'Em PDF, DWG ou foto das pranchas.' },
+          { title: 'Plotagem e orçamento sem custo', body: 'Pelos nossos técnicos.' },
+          { title: 'Corte e dobra na máquina', body: 'Peça por peça, conforme o projeto.' },
+          { title: 'Entrega programada', body: 'No dia que a obra precisa.' },
+        ]} columns={4} />
+      </div>
+    </section>
+
+    <section class="sec sec--surface">
+      <div class="container two">
+        <div>
+          <h2 class="t-h2">O que sai pronto</h2>
+          <p class="t-body-lg muted">Identificado por elemento da obra. [CONFIRMAR lista e etiqueta]</p>
+          <ul class="tiles">{pecas.map((p) => <li class="t-h4">{p}</li>)}</ul>
+        </div>
+        <div>
+          <h2 class="t-h2">Por que não cortar na obra</h2>
+          <ul class="bullets">{porque.map((p) => <li class="t-h4">{p}</li>)}</ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec--blue">
+      <div class="container">
+        <p class="t-overline">Assistência técnica</p>
+        <h2 class="t-h2">Equipe técnica permanente.</h2>
+        <p class="t-body-lg">Tira dúvidas e programa com a sua engenharia todas as etapas de execução.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="form">
+      <div class="container"><ProjetoForm /></div>
+    </section>
+
+    <section class="sec sec--surface">
+      <div class="container"><Faq items={faq} /></div>
+    </section>
+  </main>
+  <Footer />
+  <ActionBar />
+</Base>
+
+<style>
+  .hero { background: var(--grafite-900); color: var(--concreto-100); padding: calc(64px + var(--space-48)) 0 var(--space-48); }
+  @media (min-width: 1200px) { .hero { padding: calc(80px + var(--space-96)) 0 var(--space-96); } }
+  .hero__in { display: grid; gap: var(--space-32); align-items: center; }
+  @media (min-width: 1200px) { .hero__in { grid-template-columns: 1fr 1fr; } }
+  .hero__copy { display: grid; gap: var(--space-16); }
+  .hero__copy > * { margin: 0; }
+  .hero__copy .t-overline { color: var(--action-primary); }
+  .hero__copy .t-body-lg { color: var(--aco-300); max-width: 52ch; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-12); margin-top: var(--space-16); }
+  /* placeholder da coluna armada até o render do Blender */
+  .hero__art { display: none; justify-content: center; }
+  @media (min-width: 1200px) { .hero__art { display: flex; } }
+  .cage { position: relative; width: 120px; height: 420px; border-inline: 6px solid var(--aco-400); display: grid; align-content: space-between; padding: 8px 0; }
+  .cage::before, .cage::after { content: ''; position: absolute; top: 0; bottom: 0; width: 6px; background: var(--aco-400); left: 36px; }
+  .cage::after { left: auto; right: 36px; }
+  .cage span { height: 3px; background: var(--action-primary); opacity: 0.9; }
+
+  .sec { padding: var(--space-64) 0; }
+  @media (min-width: 1200px) { .sec { padding: var(--space-128) 0; } }
+  .sec h2 { margin: 0 0 var(--space-24); }
+  .sec--surface { background: var(--bg-surface); }
+  .sec--blue { background: var(--brand-blue); color: var(--branco); }
+  .sec--blue .t-overline { color: var(--marca-secundaria); margin: 0 0 var(--space-12); }
+  .sec--blue h2 { margin-bottom: var(--space-12); }
+  .sec--blue p { margin: 0; max-width: 56ch; opacity: 0.9; }
+  .muted { color: var(--text-secondary); margin: 0 0 var(--space-24); }
+  .two { display: grid; gap: var(--space-48); }
+  @media (min-width: 1200px) { .two { grid-template-columns: 1fr 1fr; gap: var(--space-64); } }
+  .tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-12); }
+  @media (min-width: 768px) { .tiles { grid-template-columns: repeat(3, 1fr); } }
+  .tiles li { padding: var(--space-16); border: 1px solid var(--border-subtle); border-radius: var(--radius-2); background: var(--bg-canvas); }
+  .bullets { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-16); }
+  .bullets li { display: flex; gap: var(--space-12); align-items: baseline; }
+  .bullets li::before { content: ''; width: 20px; height: 3px; background: var(--action-primary); flex: none; transform: translateY(-5px); }
+</style>

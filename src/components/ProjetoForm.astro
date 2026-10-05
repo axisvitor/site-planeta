@@ -1,0 +1,232 @@
+---
+import { WA } from '../content/frames';
+const cidades = ['Parauapebas', 'Canaã dos Carajás', 'Curionópolis', 'Eldorado do Carajás', 'Água Azul do Norte', 'Xinguara', 'Outra'];
+---
+<form id="projeto" class="pf" novalidate aria-labelledby="pf-title">
+  <div class="pf__head">
+    <p class="t-overline">Orçamento sem custo</p>
+    <h2 id="pf-title" class="t-h2">Envie seu projeto para orçamento.</h2>
+    <p class="t-body-lg">Resposta pelo WhatsApp em até [CONFIRMAR prazo].</p>
+  </div>
+
+  <div class="pf__grid">
+    <div class="field">
+      <label for="nome" class="t-small">Nome</label>
+      <input id="nome" name="nome" type="text" autocomplete="name" required data-err="Preencha seu nome." />
+      <p class="field__help t-small" data-help></p>
+    </div>
+    <div class="field">
+      <label for="whatsapp" class="t-small">WhatsApp</label>
+      <input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(94) 9xxxx-xxxx" required pattern="\(\d{2}\) 9\d{4}-\d{4}" data-err="Confira o número: DDD e 9 dígitos." />
+      <p class="field__help t-small" data-help></p>
+    </div>
+    <div class="field">
+      <label for="cidade" class="t-small">Cidade da obra</label>
+      <select id="cidade" name="cidade" required data-err="Escolha a cidade da obra.">
+        <option value="">Escolha</option>
+        {cidades.map((c) => <option value={c}>{c}</option>)}
+      </select>
+      <p class="field__help t-small" data-help></p>
+    </div>
+    <div class="field">
+      <label for="tipo" class="t-small">Tipo de obra <span>(opcional)</span></label>
+      <select id="tipo" name="tipo">
+        <option value="">Escolha</option>
+        <option>Residencial</option><option>Comercial</option><option>Industrial</option><option>Serralheria</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="t-small" id="up-label">Arquivos do projeto</span>
+    <label class="upload" for="arquivos" data-drop>
+      <input id="arquivos" name="arquivos" type="file" multiple accept=".pdf,.dwg,.dxf,.jpg,.jpeg,.png" class="sr-only" data-err="Anexe pelo menos um arquivo do projeto." />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden><path d="M12 16V4m0 0 4 4m-4-4-4 4M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+      <span class="t-body">Arraste os arquivos aqui ou toque para escolher</span>
+      <span class="t-small">PDF, DWG, DXF, JPG ou PNG, até 25 MB no total</span>
+    </label>
+    <ul class="files t-small" data-files aria-live="polite"></ul>
+    <p class="field__help t-small" data-help data-for="arquivos"></p>
+  </div>
+
+  <div class="pf__grid">
+    <div class="field">
+      <label for="data" class="t-small">Quando a obra precisa do aço <span>(opcional)</span></label>
+      <input id="data" name="data" type="date" />
+    </div>
+  </div>
+  <div class="field">
+    <label for="obs" class="t-small">Observações <span>(opcional)</span></label>
+    <textarea id="obs" name="obs" rows="4" placeholder="Bitolas, quantidade aproximada, acesso da obra…"></textarea>
+  </div>
+
+  <div class="field field--check">
+    <label class="check">
+      <input id="consent" name="consent" type="checkbox" required data-err="Marque a autorização para podermos responder." />
+      <span class="check__box" aria-hidden></span>
+      <span class="t-small">Autorizo o contato pela Planeta dos Ferros sobre este orçamento. <a href="/privacidade">Privacidade</a></span>
+    </label>
+    <p class="field__help t-small" data-help data-for="consent"></p>
+  </div>
+
+  <input type="text" name="empresa_site" tabindex="-1" autocomplete="off" class="sr-only" aria-hidden="true" />
+
+  <div class="pf__actions">
+    <button type="submit" class="btn btn--l btn--primary" data-submit>
+      <span data-submit-label>Enviar projeto para orçamento</span>
+    </button>
+    <p class="pf__fail t-small" data-fail hidden>Não conseguimos enviar agora. Tente de novo ou <a href={WA('Olá! Vim pelo site e quero orçamento de corte e dobra. Posso mandar o projeto por aqui?')} target="_blank" rel="noreferrer">mande o projeto pelo WhatsApp</a>.</p>
+  </div>
+</form>
+
+<section class="pf-done" data-done hidden aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>
+  <h2 class="t-h2">Projeto recebido.</h2>
+  <p class="t-body-lg">Protocolo <strong class="t-mono" data-protocolo></strong>. Nossa equipe vai analisar e chamar você no WhatsApp.</p>
+  <a class="btn btn--l btn--whatsapp" data-done-wa target="_blank" rel="noreferrer">Continuar no WhatsApp</a>
+</section>
+
+<style>
+  .pf { display: grid; gap: var(--space-24); max-width: 760px; }
+  .pf__head { display: grid; gap: var(--space-8); margin-bottom: var(--space-8); }
+  .pf__head .t-overline { color: var(--brand-blue); margin: 0; }
+  .pf__head h2, .pf__head p { margin: 0; }
+  .pf__head .t-body-lg { color: var(--text-secondary); }
+  .pf__grid { display: grid; gap: var(--space-24); }
+  @media (min-width: 768px) { .pf__grid { grid-template-columns: 1fr 1fr; } }
+
+  .field { display: grid; gap: 6px; }
+  .field label, .field > span { font-weight: 600; }
+  .field label span { font-weight: 400; color: var(--text-secondary); }
+  input:not([type=checkbox]):not([type=file]), select, textarea {
+    width: 100%; min-height: 48px; padding: 12px 16px;
+    background: var(--bg-surface); color: var(--text-primary);
+    border: 0; border-bottom: 2px solid var(--border-subtle); border-radius: 0;
+    font: inherit; transition: border-color var(--motion-fast) ease;
+  }
+  textarea { min-height: 120px; resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; border-bottom-color: var(--action-primary); }
+  .field.is-error input, .field.is-error select, .field.is-error .upload { border-bottom-color: var(--feedback-error); }
+  .field__help { margin: 0; min-height: 20px; color: var(--text-secondary); }
+  .field.is-error .field__help { color: var(--feedback-error); }
+
+  .upload { display: grid; justify-items: center; gap: var(--space-8); min-height: 160px; padding: var(--space-24);
+    background: var(--bg-surface); border: 1.5px dashed var(--border-strong); border-radius: var(--radius-8); text-align: center; cursor: pointer;
+    transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease; }
+  .upload svg { width: 32px; height: 32px; color: var(--text-secondary); }
+  .upload .t-small { color: var(--text-secondary); }
+  .upload.is-over { border-color: var(--action-primary); background: color-mix(in srgb, var(--action-primary) 8%, var(--bg-surface)); }
+  .upload:has(:focus-visible) { outline: 2px solid var(--text-primary); outline-offset: 2px; }
+  .files { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .files li { display: flex; align-items: center; gap: var(--space-12); min-height: 48px; padding: 0 var(--space-12); background: var(--bg-surface); border-radius: var(--radius-2); }
+  .files .name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .files .size { font-family: var(--font-mono); color: var(--text-secondary); }
+  .files button { width: 32px; height: 32px; display: grid; place-items: center; background: none; border: 0; color: var(--text-secondary); cursor: pointer; border-radius: var(--radius-2); }
+  .files button:hover { color: var(--text-primary); background: color-mix(in srgb, var(--text-primary) 8%, transparent); }
+
+  .check { display: grid; grid-template-columns: 20px 1fr; gap: var(--space-12); align-items: start; cursor: pointer; min-height: 44px; }
+  .check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .check__box { width: 20px; height: 20px; border: 1.5px solid var(--border-strong); border-radius: var(--radius-2); display: grid; place-items: center; margin-top: 1px; transition: background-color var(--motion-fast) ease, border-color var(--motion-fast) ease; }
+  .check__box::after { content: ''; width: 10px; height: 6px; border: 2px solid var(--action-primary-text); border-top: 0; border-right: 0; transform: rotate(-45deg) scale(0.6); opacity: 0; transition: transform var(--motion-fast) var(--ease-out), opacity var(--motion-fast) ease; }
+  .check input:checked + .check__box { background: var(--action-primary); border-color: var(--action-primary); }
+  .check input:checked + .check__box::after { opacity: 1; transform: rotate(-45deg) scale(1) translate(1px, -1px); }
+  .check input:focus-visible + .check__box { outline: 2px solid var(--text-primary); outline-offset: 2px; }
+  .field--check.is-error .check__box { border-color: var(--feedback-error); }
+  .check a { color: inherit; }
+
+  .pf__actions { display: grid; gap: var(--space-12); }
+  .btn[data-submit].is-busy { pointer-events: none; }
+  .btn[data-submit].is-busy [data-submit-label] { filter: blur(2px); opacity: 0.7; transition: filter 200ms ease, opacity 200ms ease; }
+  .pf__fail { margin: 0; color: var(--feedback-error); }
+  .pf__fail a { color: inherit; }
+
+  .pf[hidden], .pf-done[hidden] { display: none; }
+  .pf-done { display: grid; gap: var(--space-16); justify-items: start; max-width: 560px; }
+  .pf-done svg { width: 48px; height: 48px; color: var(--feedback-success); }
+  .pf-done h2, .pf-done p { margin: 0; }
+  .pf-done p { color: var(--text-secondary); }
+</style>
+
+<script>
+  const form = document.getElementById('projeto') as HTMLFormElement;
+  const done = document.querySelector<HTMLElement>('[data-done]')!;
+  const MAX = 25 * 1024 * 1024;
+  const OK = ['pdf', 'dwg', 'dxf', 'jpg', 'jpeg', 'png'];
+  const fileInput = form.querySelector<HTMLInputElement>('#arquivos')!;
+  const list = form.querySelector<HTMLUListElement>('[data-files]')!;
+  const drop = form.querySelector<HTMLElement>('[data-drop]')!;
+  let files: File[] = [];
+
+  const fmt = (b: number) => b < 1024 * 1024 ? `${Math.round(b / 1024)} KB` : `${(b / 1024 / 1024).toFixed(1)} MB`;
+  const fieldOf = (el: Element) => el.closest('.field') as HTMLElement;
+  const setErr = (el: HTMLElement, msg: string) => {
+    const f = fieldOf(el); const help = f.querySelector<HTMLElement>('[data-help]')!;
+    f.classList.toggle('is-error', !!msg); help.textContent = msg;
+  };
+
+  // máscara (94) 9xxxx-xxxx
+  const tel = form.querySelector<HTMLInputElement>('#whatsapp')!;
+  tel.addEventListener('input', () => {
+    const d = tel.value.replace(/\D/g, '').slice(0, 11);
+    tel.value = d.length <= 2 ? d : d.length <= 7 ? `(${d.slice(0, 2)}) ${d.slice(2)}` : `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  });
+
+  const render = () => {
+    list.innerHTML = '';
+    files.forEach((f, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="name"></span><span class="size">${fmt(f.size)}</span><button type="button" aria-label="Remover ${f.name}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>`;
+      li.querySelector('.name')!.textContent = f.name;
+      li.querySelector('button')!.addEventListener('click', () => { files.splice(i, 1); render(); validateFiles(); });
+      list.appendChild(li);
+    });
+  };
+  const validateFiles = () => {
+    const bad = files.find((f) => !OK.includes(f.name.split('.').pop()!.toLowerCase()));
+    const total = files.reduce((s, f) => s + f.size, 0);
+    if (bad) { setErr(fileInput, 'Esse formato não é aceito. Use PDF, DWG, DXF, JPG ou PNG.'); return false; }
+    if (total > MAX) { setErr(fileInput, 'Os arquivos passaram de 25 MB. Envie só as pranchas de armadura ou mande pelo WhatsApp.'); return false; }
+    if (!files.length) { setErr(fileInput, ''); return false; }
+    setErr(fileInput, ''); return true;
+  };
+  const addFiles = (fl: FileList | null) => { if (!fl) return; files = files.concat(Array.from(fl)); render(); validateFiles(); };
+  fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
+  ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('is-over'); }));
+  ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('is-over'); }));
+  drop.addEventListener('drop', (e) => addFiles((e as DragEvent).dataTransfer?.files ?? null));
+
+  const validate = () => {
+    let ok = true, first: HTMLElement | null = null;
+    form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[required]:not([type=file])').forEach((el) => {
+      const valid = el.type === 'checkbox' ? (el as HTMLInputElement).checked : el.checkValidity() && el.value.trim() !== '';
+      setErr(el, valid ? '' : el.dataset.err!);
+      if (!valid) { ok = false; first ??= el; }
+    });
+    if (!validateFiles()) { if (!files.length) setErr(fileInput, fileInput.dataset.err!); ok = false; first ??= drop; }
+    first?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    return ok;
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if ((form.elements.namedItem('empresa_site') as HTMLInputElement).value) return; // honeypot
+    if (!validate()) return;
+    const btn = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const label = btn.querySelector<HTMLElement>('[data-submit-label]')!;
+    const fail = form.querySelector<HTMLElement>('[data-fail]')!;
+    btn.classList.add('is-busy'); fail.hidden = true; label.textContent = 'Enviando projeto…';
+    try {
+      // TODO fase 6: Supabase (URLs assinadas) + Resend. Por enquanto gera o protocolo localmente.
+      await new Promise((r) => setTimeout(r, 900));
+      const d = new Date(); const ymd = d.toISOString().slice(0, 10).replace(/-/g, '');
+      const protocolo = `PF-${ymd}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+      done.querySelector<HTMLElement>('[data-protocolo]')!.textContent = protocolo;
+      done.querySelector<HTMLAnchorElement>('[data-done-wa]')!.href = `https://wa.me/5594991631413?text=${encodeURIComponent(`Olá! Acabei de enviar o projeto ${protocolo} pelo site.`)}`;
+      form.hidden = true; done.hidden = false; done.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    } catch {
+      fail.hidden = false;
+    } finally {
+      btn.classList.remove('is-busy'); label.textContent = 'Enviar projeto para orçamento';
+    }
+  });
+</script>

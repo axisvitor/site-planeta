@@ -56,6 +56,16 @@
   --feedback-success: var(--sucesso-500);
 }
 
+[data-theme='dark'] {
+  --bg-canvas: var(--grafite-900);
+  --bg-surface: var(--grafite-800);
+  --bg-inverse: var(--concreto-100);
+  --text-primary: var(--concreto-100);
+  --text-secondary: var(--aco-300);
+  --border-subtle: var(--grafite-700);
+  --border-strong: var(--aco-400);
+}
+
 [data-theme='light'] {
   --bg-canvas: var(--concreto-100);
   --bg-surface: var(--branco);

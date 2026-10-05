@@ -1,0 +1,31 @@
+---
+interface Props { items: { q: string; a: string }[]; title?: string }
+const { items, title = 'Perguntas frequentes' } = Astro.props;
+---
+<section class="faq">
+  <h2 class="t-h2">{title}</h2>
+  <div class="faq__list">
+    {items.map((it, i) => (
+      <details class="faq__item" open={i === 0}>
+        <summary class="t-h4">
+          {it.q}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <p class="t-body">{it.a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+<style>
+  .faq h2 { margin: 0 0 var(--space-24); }
+  .faq__list { max-width: 760px; }
+  .faq__item { border-top: 1px solid var(--border-subtle); }
+  .faq__item:last-child { border-bottom: 1px solid var(--border-subtle); }
+  summary { list-style: none; cursor: pointer; min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); padding: var(--space-16) 0; }
+  summary::-webkit-details-marker { display: none; }
+  summary svg { width: 20px; height: 20px; flex: none; color: var(--text-secondary); }
+  summary .v { transition: transform var(--motion-base) var(--ease-out); transform-origin: center; }
+  details[open] summary .v { transform: scaleY(0); }
+  .faq__item p { margin: 0 0 var(--space-24); color: var(--text-secondary); max-width: 62ch; }
+  summary:focus-visible { outline: 2px solid var(--text-primary); outline-offset: 2px; }
+</style>

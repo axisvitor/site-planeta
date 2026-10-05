@@ -1,0 +1,51 @@
+---
+import filiais from '../content/filiais.json';
+const nav = [['Produtos', '/produtos'], ['Corte e Dobra', '/corte-e-dobra'], ['Área de Entrega', '/area-de-entrega'], ['Empresa', '/empresa'], ['Contato', '/contato']];
+---
+<footer class="ftr">
+  <div class="container">
+    <p class="ftr__lead t-body-lg">Ferro e aço para construção e serralheria no sul do Pará.</p>
+    <div class="ftr__grid">
+      {filiais.map((f) => (
+        <div>
+          <h2 class="t-h4">{f.nome}{f.sede ? ' (sede)' : ''}</h2>
+          <ul class="ftr__list t-small">
+            <li>{f.endereco}</li>
+            <li><a href={`tel:+${f.fixo}`}>{f.fixoDisplay}</a></li>
+            <li>WhatsApp <a href={`https://wa.me/${f.whatsapp}`} target="_blank" rel="noreferrer">{f.whatsappDisplay}</a></li>
+            <li><a href={`mailto:${f.email}`}>{f.email}</a></li>
+          </ul>
+        </div>
+      ))}
+      <div>
+        <h2 class="t-h4">Navegação</h2>
+        <ul class="ftr__list t-small">
+          {nav.map(([l, h]) => <li><a href={h}>{l}</a></li>)}
+          <li><a href="https://www.instagram.com/planetadosferros/" target="_blank" rel="noreferrer">Instagram</a> · <a href="https://www.facebook.com/planetadosferrospa" target="_blank" rel="noreferrer">Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="t-h4">Entregamos em</h2>
+        <ul class="ftr__list t-small">
+          <li>Sul do Pará, de Parauapebas a Xinguara.</li>
+          <li><a href="/area-de-entrega">Consulte a loja sobre sua cidade.</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="ftr__legal t-small">© 2026 Planeta dos Ferros · CNPJ [CONFIRMAR] · <a href="/privacidade">Privacidade</a></p>
+  </div>
+</footer>
+<style>
+  .ftr { background: var(--grafite-900); color: var(--concreto-100); padding: var(--space-48) 0 calc(var(--space-48) + 64px); border-top: 1px solid var(--grafite-700); }
+  @media (min-width: 1200px) { .ftr { padding: var(--space-64) 0; } }
+  .ftr__lead { margin: 0 0 var(--space-32); color: var(--aco-300); }
+  .ftr__grid { display: grid; gap: var(--space-32); }
+  @media (min-width: 768px) { .ftr__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1200px) { .ftr__grid { grid-template-columns: repeat(4, 1fr); gap: var(--space-24); } }
+  .ftr h2 { margin: 0 0 var(--space-12); }
+  .ftr__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-8); color: var(--aco-300); }
+  .ftr__list a { color: inherit; text-decoration: none; }
+  .ftr__list a:hover { color: var(--concreto-100); text-decoration: underline; text-underline-offset: 4px; }
+  .ftr__legal { margin: var(--space-48) 0 0; color: var(--aco-400); }
+  .ftr__legal a { color: inherit; }
+</style>
