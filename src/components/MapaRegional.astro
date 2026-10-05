@@ -1,0 +1,48 @@
+---
+/**
+ * Mapa esquemático do sul do Pará. Coordenadas aproximadas (lon, lat) projetadas num plano simples.
+ * Silhueta regional: placeholder poligonal até substituir pelo traçado OSM/IBGE do Figma (Asset/Mapa regional).
+ */
+const pts = {
+  parauapebas: { lon: -49.90, lat: -6.07, nome: 'Parauapebas', loja: true },
+  canaa:       { lon: -49.88, lat: -6.53, nome: 'Canaã dos Carajás', loja: true },
+  curionopolis:{ lon: -49.60, lat: -6.10, nome: 'Curionópolis' },
+  eldorado:    { lon: -49.36, lat: -6.10, nome: 'Eldorado do Carajás' },
+  aguaazul:    { lon: -50.34, lat: -6.79, nome: 'Água Azul do Norte' },
+  xinguara:    { lon: -49.95, lat: -7.10, nome: 'Xinguara' },
+};
+const W = 960, H = 720;
+const X = (lon: number) => ((lon + 50.8) / 1.8) * W;
+const Y = (lat: number) => ((-5.6 - lat) / 1.9) * H;
+const rota = ['parauapebas', 'canaa', 'xinguara'].map((k) => `${X(pts[k as keyof typeof pts].lon)},${Y(pts[k as keyof typeof pts].lat)}`).join(' ');
+---
+<svg class="mapa" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Mapa com as lojas de Parauapebas e Canaã dos Carajás e a rota de entrega até Xinguara">
+  <path class="silhueta" d="M120 60 L420 30 L700 90 L880 240 L860 460 L700 660 L420 690 L200 600 L80 400 Z" />
+  <g class="grid">{Array.from({ length: 9 }, (_, i) => <line x1={i * 120} y1="0" x2={i * 120} y2={H} />)}{Array.from({ length: 7 }, (_, i) => <line x1="0" y1={i * 120} x2={W} y2={i * 120} />)}</g>
+  <polyline class="rota" points={rota} pathLength="1" />
+  {Object.entries(pts).map(([k, p]) => (
+    <g class={`ponto ${p.loja ? 'ponto--loja' : ''}`} transform={`translate(${X(p.lon)} ${Y(p.lat)})`}>
+      {p.loja ? <path d="M0 0c-9-12-14-18-14-26a14 14 0 1 1 28 0c0 8-5 14-14 26Z" transform="translate(0 2)" /> : <circle r="5" />}
+      <text x={p.loja ? 20 : 12} y={p.loja ? -12 : 5}>{p.nome}</text>
+    </g>
+  ))}
+  <g class="norte" transform={`translate(${W - 40} 40)`}><path d="M0 18V-18m0 0-6 8m6-8 6 8" /><text y="34">N</text></g>
+  <text class="credito" x="16" y={H - 16}>Silhueta esquemática · substituir pelo traçado IBGE/OSM</text>
+</svg>
+<style>
+  .mapa { width: 100%; height: auto; display: block; background: var(--grafite-900); border-radius: var(--radius-2); font-family: var(--font-body); }
+  .silhueta { fill: var(--grafite-800); stroke: var(--grafite-700); stroke-width: 1; }
+  .grid line { stroke: var(--grafite-700); stroke-width: 0.5; opacity: 0.5; }
+  .rota { fill: none; stroke: var(--marca-secundaria); stroke-width: 2.5; stroke-dasharray: 6 6; stroke-linejoin: round; }
+  .ponto circle { fill: var(--aco-300); }
+  .ponto text { fill: var(--aco-300); font-size: 15px; }
+  .ponto--loja path { fill: var(--marca-secundaria); }
+  .ponto--loja text { fill: var(--concreto-100); font-weight: 600; font-size: 18px; }
+  .norte path { fill: none; stroke: var(--aco-400); stroke-width: 1.5; }
+  .norte text { fill: var(--aco-400); font-size: 12px; text-anchor: middle; }
+  .credito { fill: var(--aco-400); font-size: 12px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .rota { stroke-dasharray: 1; stroke-dashoffset: 1; animation: tracar 1.6s var(--ease-out) 300ms forwards; }
+    @keyframes tracar { to { stroke-dashoffset: 0; } }
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+import Page from '../../layouts/Page.astro';
+import { getCollection } from 'astro:content';
+import { frentes, type Frente } from '../../content/frentes';
+const cats = await getCollection('categorias');
+const bySlug = Object.fromEntries(cats.map((c) => [c.slug, c]));
+---
+<Page title="Produtos de Ferro e Aço | Planeta dos Ferros" description="Vergalhão, colunas, telas, vigas, telhas e material para serralheria, com entrega no sul do Pará." overline="Produtos" h1="Ferro e aço para construir, cobrir e soldar" lead="Três frentes, nove categorias. Tudo com entrega no sul do Pará.">
+  <section class="sec">
+    <div class="container frentes">
+      {(Object.keys(frentes) as Frente[]).map((k) => (
+        <article class="frente">
+          <h2 class="t-h3">{frentes[k].nome}</h2>
+          <ul>
+            {frentes[k].ordem.map((slug) => (
+              <li><a href={`/produtos/${slug}`} class="t-body">{bySlug[slug].data.nome}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+</Page>
+<style>
+  .frentes { display: grid; gap: var(--space-24); }
+  @media (min-width: 1200px) { .frentes { grid-template-columns: repeat(3, 1fr); } }
+  .frente { position: relative; padding: var(--space-32); border: 1px solid var(--border-subtle); border-radius: var(--radius-2); background: var(--bg-surface); transition: border-color var(--motion-fast) ease; }
+  .frente::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--action-primary); opacity: 0; transition: opacity var(--motion-fast) ease; }
+  @media (hover: hover) { .frente:hover { border-color: var(--border-strong); } .frente:hover::before { opacity: 1; } }
+  .frente h2 { margin: 0 0 var(--space-16); }
+  .frente ul { list-style: none; margin: 0; padding: 0; }
+  .frente a { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-height: 44px; text-decoration: none; border-top: 1px solid var(--border-subtle); }
+  .frente a:hover { color: var(--brand-blue); }
+  .frente svg { width: 20px; height: 20px; flex: none; }
+</style>

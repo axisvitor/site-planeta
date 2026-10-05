@@ -1,0 +1,27 @@
+---
+import Page from '../layouts/Page.astro';
+const secoes = [
+  ['Quem cuida dos dados', 'Planeta dos Ferros, CNPJ [CONFIRMAR]. Contato para privacidade: vendas@planetadosferros.com.br.'],
+  ['Que dados coletamos', 'Nome, WhatsApp, cidade, dados da obra e arquivos do projeto enviados no formulário; dados de navegação via cookies, se aceitos.'],
+  ['Para que usamos', 'Responder o orçamento solicitado e medir o uso do site.'],
+  ['Com quem compartilhamos', 'Serviços que operam o site (hospedagem, armazenamento dos arquivos, envio de e-mail, Google Analytics). Não vendemos dados.'],
+  ['Por quanto tempo guardamos', 'Projetos e contatos por [definir] meses depois do último contato.'],
+  ['Seus direitos', 'Acessar, corrigir ou apagar seus dados, pedindo pelo e-mail indicado.'],
+  ['Cookies', 'Usamos cookies de medição de audiência. Você pode recusar no aviso de cookies ou nas configurações do navegador.'],
+];
+---
+<Page title="Privacidade | Planeta dos Ferros" description="Como a Planeta dos Ferros trata os dados enviados pelo site." overline="Privacidade" h1="Como tratamos seus dados.">
+  <section class="sec">
+    <div class="container prose">
+      <p class="t-small aviso">Modelo de conteúdo; revisar com o contador ou advogado da empresa antes de publicar.</p>
+      {secoes.map(([t, b], i) => <article><h2 class="t-h3"><span class="t-mono">{String(i + 1).padStart(2, '0')}</span>{t}</h2><p class="t-body">{b}</p></article>)}
+    </div>
+  </section>
+</Page>
+<style>
+  .prose { max-width: 720px; display: grid; gap: var(--space-32); }
+  .aviso { margin: 0; padding: var(--space-12) var(--space-16); background: var(--bg-surface); border-left: 3px solid var(--action-primary); color: var(--text-secondary); }
+  article h2 { margin: 0 0 var(--space-8); display: flex; gap: var(--space-12); align-items: baseline; }
+  article h2 .t-mono { color: var(--brand-blue); }
+  article p { margin: 0; color: var(--text-secondary); }
+</style>

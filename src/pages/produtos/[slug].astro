@@ -1,0 +1,90 @@
+---
+import Page from '../../layouts/Page.astro';
+import { getCollection } from 'astro:content';
+import { frentes } from '../../content/frentes';
+import { WA } from '../../content/frames';
+
+export async function getStaticPaths() {
+  const cats = await getCollection('categorias');
+  return cats.map((c) => ({ params: { slug: c.slug }, props: { c, all: cats } }));
+}
+const { c, all } = Astro.props;
+const d = c.data;
+const frente = frentes[d.frente];
+const relacionados = frente.ordem.filter((s) => s !== c.slug).map((s) => all.find((x) => x.slug === s)!);
+const wa = WA(`Olá! Vim pelo site e quero orçamento de ${d.waTermo}.`);
+---
+<Page
+  title={`${d.nome} em Parauapebas e Canaã | Planeta dos Ferros`}
+  description={`${d.nome} com entrega no sul do Pará. Peça orçamento pelo WhatsApp nas lojas de Parauapebas e Canaã dos Carajás.`}
+  overline={frente.nome}
+  h1={`${d.nome} com entrega no sul do Pará`}
+  lead={d.resumo}
+  crumbs={[['Produtos', '/produtos'], [frente.nome, '/produtos'], [d.nome, `/produtos/${c.slug}`]]}
+>
+  <div slot="top" class="top__ctas">
+    <a href={wa} class="btn btn--l btn--whatsapp" target="_blank" rel="noreferrer">Pedir orçamento de {d.nome.toLowerCase()}</a>
+  </div>
+
+  <section class="sec">
+    <div class="container two">
+      <div>
+        <h2 class="t-h2">Especificações</h2>
+        <table class="spec">
+          <tbody>{d.specs.map((s) => <tr><th class="t-overline">{s.label}</th><td class="t-mono">{s.valor}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <div>
+        <h2 class="t-h2">Aplicações</h2>
+        <ul class="bullets">{d.aplicacoes.map((a) => <li class="t-h4">{a}</li>)}</ul>
+        <div class="figure" aria-hidden><span class="t-small">foto de {d.nome.toLowerCase()} no pátio da loja</span></div>
+      </div>
+    </div>
+  </section>
+
+  {d.ponte && (
+    <section class="sec ponte" data-theme="dark">
+      <div class="container ponte__in">
+        <div>
+          <p class="t-overline">Corte e dobra</p>
+          <h2 class="t-h2">Prefere receber cortado e dobrado?</h2>
+          <p class="t-body-lg">Mande o projeto e receba o orçamento sem custo.</p>
+        </div>
+        <a href="/corte-e-dobra#projeto" class="btn btn--l btn--primary">Enviar projeto</a>
+      </div>
+    </section>
+  )}
+
+  <section class="sec sec--surface">
+    <div class="container">
+      <h2 class="t-h2">Também em {frente.nome.toLowerCase()}</h2>
+      <ul class="rel">
+        {relacionados.map((r) => <li><a href={`/produtos/${r.slug}`}><span class="t-h4">{r.data.nome}</span><span class="t-small">{r.data.resumo.slice(0, 90)}…</span></a></li>)}
+      </ul>
+    </div>
+  </section>
+</Page>
+<style>
+  .top__ctas { margin-top: var(--space-24); }
+  .two { display: grid; gap: var(--space-48); }
+  @media (min-width: 1200px) { .two { grid-template-columns: 1fr 1fr; gap: var(--space-64); } }
+  .spec { width: 100%; border-collapse: collapse; }
+  .spec th, .spec td { text-align: left; padding: 14px var(--space-16); border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+  .spec th { color: var(--text-secondary); font-weight: 600; width: 40%; }
+  .spec tr:nth-child(odd) { background: var(--bg-surface); }
+  .bullets { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-12); }
+  .bullets li { display: flex; gap: var(--space-12); align-items: baseline; }
+  .bullets li::before { content: ''; width: 20px; height: 3px; background: var(--action-primary); flex: none; transform: translateY(-5px); }
+  .figure { margin-top: var(--space-32); aspect-ratio: 4 / 3; max-width: 100%; display: grid; place-items: center; background: var(--concreto-200); color: var(--carepa-600); border-radius: var(--radius-2); }
+  .ponte { background: var(--grafite-900); color: var(--concreto-100); }
+  .ponte__in { display: grid; gap: var(--space-24); align-items: center; }
+  @media (min-width: 1200px) { .ponte__in { grid-template-columns: 1fr auto; } }
+  .ponte .t-overline { color: var(--action-primary); margin: 0 0 var(--space-8); }
+  .ponte h2 { margin: 0 0 var(--space-8); }
+  .ponte p { margin: 0; color: var(--aco-300); }
+  .rel { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-16); }
+  @media (min-width: 768px) { .rel { grid-template-columns: repeat(3, 1fr); } }
+  .rel a { display: grid; gap: var(--space-8); padding: var(--space-20); border: 1px solid var(--border-subtle); border-radius: var(--radius-2); background: var(--bg-canvas); text-decoration: none; height: 100%; }
+  .rel a:hover { border-color: var(--border-strong); }
+  .rel .t-small { color: var(--text-secondary); }
+</style>

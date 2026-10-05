@@ -1,0 +1,54 @@
+---
+import Page from '../layouts/Page.astro';
+import MapaRegional from '../components/MapaRegional.astro';
+import Steps from '../components/Steps.astro';
+import { WA } from '../content/frames';
+const cidades = [
+  { n: 'Parauapebas', loja: true }, { n: 'Canaã dos Carajás', loja: true },
+  { n: 'Curionópolis' }, { n: 'Eldorado do Carajás' }, { n: 'Água Azul do Norte' }, { n: 'Xinguara' },
+];
+---
+<Page title="Entrega de Ferro e Aço no Sul do Pará | Planeta dos Ferros" description="Entregamos de Parauapebas a Xinguara, com data programada conforme o cronograma da sua obra. Veja as cidades atendidas." overline="Área de entrega" h1="Entregamos aço em todo o sul do Pará." lead="De Parauapebas a Xinguara, com entrega programada conforme o cronograma da sua obra.">
+  <section class="mapsec" data-theme="dark">
+    <div class="container"><MapaRegional /></div>
+  </section>
+
+  <section class="sec">
+    <div class="container">
+      <h2 class="t-h2">Cidades atendidas</h2>
+      <p class="t-body muted">Lista a confirmar com a loja. [CONFIRMAR cidades e prazos]</p>
+      <ul class="chips">{cidades.map((c) => <li class={`chip ${c.loja ? 'chip--loja' : ''}`}>{c.n}{c.loja && <span class="t-overline">loja</span>}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="sec sec--surface">
+    <div class="container">
+      <h2 class="t-h2">Como funciona</h2>
+      <Steps items={[
+        { title: 'Combine a data com o vendedor' },
+        { title: 'Separamos e conferimos o pedido' },
+        { title: 'O material chega no dia programado, sem atrasar a obra' },
+      ]} />
+    </div>
+  </section>
+
+  <section class="sec cta" data-theme="dark">
+    <div class="container cta__in">
+      <h2 class="t-h2">Sua cidade não está na lista?</h2>
+      <a href={WA('Olá! Vim pelo site. Vocês entregam na minha cidade?')} class="btn btn--l btn--whatsapp" target="_blank" rel="noreferrer">Pergunte no WhatsApp</a>
+    </div>
+  </section>
+</Page>
+<style>
+  .mapsec { background: var(--grafite-900); padding: 0 0 var(--space-48); }
+  @media (min-width: 1200px) { .mapsec { padding-bottom: var(--space-64); } }
+  .muted { margin: 0 0 var(--space-24); color: var(--text-secondary); }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-8); }
+  .chip { display: inline-flex; align-items: center; gap: var(--space-8); height: 32px; padding: 0 12px; border: 1px solid var(--border-subtle); border-radius: var(--radius-2); font-weight: 600; font-size: 14px; }
+  .chip--loja { background: color-mix(in srgb, var(--action-primary) 12%, transparent); border-color: var(--action-primary); }
+  .chip .t-overline { color: var(--brand-blue); }
+  .cta { background: var(--grafite-900); color: var(--concreto-100); }
+  .cta__in { display: grid; gap: var(--space-24); align-items: center; }
+  @media (min-width: 1200px) { .cta__in { grid-template-columns: 1fr auto; } }
+  .cta h2 { margin: 0; }
+</style>

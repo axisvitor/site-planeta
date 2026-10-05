@@ -1,0 +1,44 @@
+---
+/** Layout das páginas internas: header + topo escuro + conteúdo claro + footer + barra fixa. */
+import Base from './Base.astro';
+import Header from '../components/Header.astro';
+import ActionBar from '../components/ActionBar.astro';
+import Footer from '../components/Footer.astro';
+interface Props { title: string; description: string; overline?: string; h1: string; lead?: string; crumbs?: [string, string][] }
+const { title, description, overline, h1, lead, crumbs } = Astro.props;
+---
+<Base title={title} description={description} theme="light">
+  <Header />
+  <main>
+    <section class="top" data-theme="dark">
+      <div class="container">
+        {crumbs && (
+          <nav class="crumbs t-small" aria-label="Você está em">
+            {crumbs.map(([l, h], i) => <><a href={h}>{l}</a>{i < crumbs.length - 1 && <span aria-hidden>/</span>}</>)}
+          </nav>
+        )}
+        {overline && <p class="t-overline">{overline}</p>}
+        <h1 class="t-h1">{h1}</h1>
+        {lead && <p class="t-body-lg lead">{lead}</p>}
+        <slot name="top" />
+      </div>
+    </section>
+    <slot />
+  </main>
+  <Footer />
+  <ActionBar />
+</Base>
+<style is:global>
+  .top { background: var(--grafite-900); color: var(--concreto-100); padding: calc(64px + var(--space-48)) 0 var(--space-48); }
+  @media (min-width: 1200px) { .top { padding: calc(80px + var(--space-64)) 0 var(--space-64); } }
+  .top .t-overline { color: var(--action-primary); margin: 0 0 var(--space-12); }
+  .top h1 { margin: 0; max-width: 20ch; text-wrap: balance; }
+  .top .lead { margin: var(--space-16) 0 0; color: var(--aco-300); max-width: 56ch; }
+  .crumbs { display: flex; gap: var(--space-8); margin: 0 0 var(--space-16); color: var(--aco-300); }
+  .crumbs a { color: inherit; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .sec { padding: var(--space-64) 0; }
+  @media (min-width: 1200px) { .sec { padding: var(--space-96) 0; } }
+  .sec--surface { background: var(--bg-surface); }
+  .sec h2 { margin: 0 0 var(--space-24); }
+</style>

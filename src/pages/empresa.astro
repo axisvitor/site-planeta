@@ -1,0 +1,50 @@
+---
+import Page from '../layouts/Page.astro';
+const valores = [
+  'Cliente satisfeito em primeiro lugar',
+  'Equipe comprometida',
+  'Segurança de quem trabalha com a gente',
+  'Parceria séria com clientes e fornecedores',
+];
+---
+<Page title="Sobre a Planeta dos Ferros | Ferro e Aço no Sul do Pará" description="Ferro e aço para construção e serralheria no sul do Pará, com lojas em Parauapebas e Canaã dos Carajás." overline="Empresa" h1="Aço para quem constrói no sul do Pará.">
+  <section class="sec">
+    <div class="container two">
+      <div>
+        <h2 class="t-h2">Quem somos</h2>
+        <p class="t-body-lg">A Planeta dos Ferros fabrica e vende produtos de ferro e aço para construção e serralheria. Começamos em Parauapebas, abrimos a sede de Canaã dos Carajás e hoje entregamos em toda a região. <span class="muted">[CONFIRMAR ano de fundação]</span></p>
+      </div>
+      <div class="figure" aria-hidden><span class="t-small">foto do pátio ou da máquina de corte e dobra</span></div>
+    </div>
+  </section>
+
+  <section class="sec sec--surface" id="qualidade">
+    <div class="container two">
+      <div>
+        <h2 class="t-h2">Qualidade</h2>
+        <p class="t-body-lg">Corte, armazenamento e distribuição seguem o manual de qualidade da empresa e as normas do setor. Vergalhão conforme NBR 7480.</p>
+      </div>
+      <div>
+        <h2 class="t-h2">Como trabalhamos</h2>
+        <ul class="bullets">{valores.map((v) => <li class="t-h4">{v}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="clientes">
+    <div class="container">
+      <h2 class="t-h2">Clientes e obras</h2>
+      <p class="t-body-lg muted">Logos de construtoras e obras atendidas entram aqui. [FASE 2]</p>
+    </div>
+  </section>
+</Page>
+<style>
+  .two { display: grid; gap: var(--space-48); align-items: start; }
+  @media (min-width: 1200px) { .two { grid-template-columns: 1fr 1fr; gap: var(--space-64); } }
+  .two p { margin: 0; max-width: 56ch; }
+  .muted { color: var(--text-secondary); }
+  .figure { aspect-ratio: 4 / 3; max-width: 100%; display: grid; place-items: center; background: var(--concreto-200); color: var(--carepa-600); border-radius: var(--radius-2); }
+  .bullets { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-12); }
+  .bullets li { display: flex; gap: var(--space-12); align-items: baseline; }
+  .bullets li::before { content: ''; width: 20px; height: 3px; background: var(--action-primary); flex: none; transform: translateY(-5px); }
+</style>

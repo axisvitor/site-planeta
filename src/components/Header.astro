@@ -1,5 +1,9 @@
 ---
 import { WA } from '../content/frames';
+import { getCollection } from 'astro:content';
+import { frentes, type Frente } from '../content/frentes';
+const cats = await getCollection('categorias');
+const bySlug = Object.fromEntries(cats.map((c) => [c.slug, c.data.nome]));
 const nav = [
   ['Produtos', '/produtos'], ['Corte e Dobra', '/corte-e-dobra'], ['Área de Entrega', '/area-de-entrega'],
   ['Empresa', '/empresa'], ['Contato', '/contato'],
@@ -11,7 +15,20 @@ const nav = [
       <img src="/logo.svg" alt="Planeta dos Ferros" width="140" height="36" />
     </a>
     <nav class="hdr__nav" aria-label="Principal">
-      {nav.map(([l, h]) => <a href={h}>{l}</a>)}
+      <div class="mega">
+        <a href="/produtos" aria-haspopup="true" aria-expanded="false" class="mega__trigger">Produtos<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden><path d="m6 9 6 6 6-6"/></svg></a>
+        <div class="mega__panel" role="region" aria-label="Categorias de produtos">
+          <div class="container mega__grid">
+            {(Object.keys(frentes) as Frente[]).map((k) => (
+              <div>
+                <p class="t-overline">{frentes[k].nome}</p>
+                <ul>{frentes[k].ordem.map((slug) => <li><a href={`/produtos/${slug}`}>{bySlug[slug]}</a></li>)}</ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {nav.slice(1).map(([l, h]) => <a href={h}>{l}</a>)}
     </nav>
     <div class="hdr__ctas">
       <a href="/corte-e-dobra#projeto" class="btn btn--secondary">Enviar projeto</a>
@@ -45,6 +62,23 @@ const nav = [
   .hdr__nav { display: none; gap: var(--space-32); margin-left: var(--space-16); }
   .hdr__nav a { font-weight: 600; text-decoration: none; opacity: 0.9; }
   .hdr__nav a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 6px; }
+  .mega { position: static; }
+  .mega__trigger { display: inline-flex; align-items: center; gap: 4px; }
+  .mega__trigger svg { width: 16px; height: 16px; transition: transform var(--motion-base) var(--ease-out); }
+  .mega__panel { position: absolute; left: 0; right: 0; top: 100%; background: var(--grafite-900); border-top: 1px solid var(--grafite-700); border-bottom: 1px solid var(--grafite-700);
+    opacity: 0; transform: translateY(-6px); visibility: hidden; transition: opacity 150ms ease, transform 150ms var(--ease-out), visibility 0s linear 150ms; }
+  .mega:hover .mega__panel, .mega:focus-within .mega__panel { opacity: 1; transform: none; visibility: visible; transition: opacity 200ms ease, transform 200ms var(--ease-out), visibility 0s; }
+  .mega:hover .mega__trigger svg, .mega:focus-within .mega__trigger svg { transform: rotate(180deg); }
+  .mega__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-32); padding-block: var(--space-32); }
+  .mega__grid .t-overline { margin: 0 0 var(--space-12); color: var(--action-primary); }
+  .mega__grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+  .mega__grid li a { display: block; padding: 8px 0; font-weight: 400; opacity: 0.85; }
+  .macc summary { list-style: none; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+  .macc summary::-webkit-details-marker { display: none; }
+  .macc summary svg { width: 24px; height: 24px; transition: transform var(--motion-base) var(--ease-out); }
+  .macc[open] summary svg { transform: rotate(180deg); }
+  .macc__g { display: grid; gap: var(--space-8); padding: var(--space-16) 0 var(--space-8) var(--space-16); border-left: 2px solid var(--grafite-700); margin-top: var(--space-12); }
+  .macc__g .t-overline { margin: 0; color: var(--action-primary); }
   .hdr__ctas { display: none; gap: var(--space-12); margin-left: auto; }
   @media (min-width: 1200px) { .hdr__nav, .hdr__ctas { display: flex; } }
   .hdr__menu { margin-left: auto; width: 44px; height: 44px; display: grid; place-items: center; background: none; border: 0; color: inherit; cursor: pointer; }

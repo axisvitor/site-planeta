@@ -1,0 +1,22 @@
+---
+import Page from '../layouts/Page.astro';
+import { WA } from '../content/frames';
+---
+<Page title="Página não encontrada | Planeta dos Ferros" description="Essa página não existe mais." overline="Erro 404" h1="Essa página não existe mais." lead="O site da Planeta dos Ferros mudou. Encontre o que precisa abaixo.">
+  <div slot="top" class="acts">
+    <a href="/" class="btn btn--l btn--primary">Ir para a Home</a>
+    <a href={WA('Olá! Vim pelo site e quero um orçamento de aço.')} class="btn btn--l btn--whatsapp" target="_blank" rel="noreferrer">Falar no WhatsApp</a>
+  </div>
+  <section class="sec">
+    <div class="container links">
+      {[['Produtos', '/produtos'], ['Corte e Dobra', '/corte-e-dobra'], ['Área de Entrega', '/area-de-entrega'], ['Contato', '/contato']].map(([l, h]) => <a href={h} class="t-h4">{l}</a>)}
+    </div>
+  </section>
+</Page>
+<style>
+  .acts { display: flex; flex-wrap: wrap; gap: var(--space-12); margin-top: var(--space-24); }
+  .links { display: grid; gap: var(--space-12); }
+  @media (min-width: 768px) { .links { grid-template-columns: repeat(4, 1fr); } }
+  .links a { padding: var(--space-20); border: 1px solid var(--border-subtle); border-radius: var(--radius-2); text-decoration: none; }
+  .links a:hover { border-color: var(--border-strong); }
+</style>
